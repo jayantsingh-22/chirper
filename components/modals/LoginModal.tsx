@@ -63,7 +63,7 @@ const LoginModal = () => {
   const footerContent = (
     <div className="text-neutral-400 text-center mt-4">
       <p>
-        First time using chirper?
+        First time using twitter?
         <span
           onClick={onToggle}
           className="
