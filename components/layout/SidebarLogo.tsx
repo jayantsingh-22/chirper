@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { Bschirper } from "react-icons/bs";
+import { BsTwitter } from "react-icons/bs";
 
 const SidebarLogo = () => {
   const router = useRouter();
@@ -20,7 +20,7 @@ const SidebarLogo = () => {
    transition
    "
     >
-      <Bschirper className="text-blue-500" size={30} color="white" />
+      <BsTwitter className="text-blue-500" size={30} color="white" />
     </div>
   );
 };
