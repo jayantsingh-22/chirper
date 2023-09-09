@@ -9,11 +9,17 @@ import useRegisterModal from "@/hooks/useRegisterModal";
 import Modal from "../Modal";
 import Input from "../Input";
 
+function isValidEmail(email: string): boolean {
+  const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+  return emailRegex.test(email);
+}
+
 const RegisterModal = () => {
   const loginModal = useLoginModal();
   const registerModal = useRegisterModal();
 
   const [email, setEmail] = useState("");
+  const [isEmailValid, setIsEmailValid] = useState(true);
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
@@ -31,6 +37,11 @@ const RegisterModal = () => {
   const onSubmit = useCallback(async () => {
     try {
       setIsLoading(true);
+
+      if (!isValidEmail(email)) {
+        setIsEmailValid(false);
+        return;
+      }
 
       await axios.post("/api/register", {
         email,
@@ -59,10 +70,14 @@ const RegisterModal = () => {
     <div className="flex flex-col gap-4">
       <Input
         placeholder="Email"
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={(e) =>{ 
+          setEmail(e.target.value);
+          setIsEmailValid(isValidEmail(e.target.value));
+        }}
         value={email}
         disabled={isLoading}
       />
+      {!isEmailValid && <p className="text-red-500">Invalid email</p>}
 
       <Input
         placeholder="Name"
